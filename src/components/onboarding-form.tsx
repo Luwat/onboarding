@@ -4,7 +4,7 @@ import { Box, Heading, Steps } from "@chakra-ui/react";
 import PersonalInfo from "./personal-info";
 import WorkInfo from "./work-info";
 import MoreDetails from "./more-details";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const onboardingSteps = [
   {
@@ -22,10 +22,23 @@ const onboardingSteps = [
 ];
 
 export function OnboardingFormSteps() {
-  const [step, setStep] = useState(0);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const stepId = searchParams.get("step");
+  let step = onboardingSteps.findIndex((step) => step.id === stepId);
+  if (step === -1) step = 0;
+  if (stepId === "done") step = onboardingSteps.length;
 
   const goToNextStep = () => {
-    setStep((prevStep) => prevStep + 1);
+    const nextStep = onboardingSteps[step + 1];
+    router.push(`?step=${nextStep?.id ?? "done"}`)
+  }
+
+  const goToStep = (step: number) => {
+    const nextStep = onboardingSteps[step];
+    if (nextStep) {
+      router.push(`?step=${nextStep.id}`)
+    }
   }
 
   return (
@@ -33,7 +46,7 @@ export function OnboardingFormSteps() {
       <Heading mb={12}>Onboarding Form</Heading>
       <Steps.Root
         step={step}
-        onStepChange={(event) => setStep(event.step)}
+        onStepChange={(event) => goToStep(event.step)}
         count={onboardingSteps.length}
       >
         <Steps.List>
