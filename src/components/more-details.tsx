@@ -1,6 +1,14 @@
-'use client';
+"use client";
 
-import { Button, Field, NativeSelect, Stack, Textarea } from "@chakra-ui/react";
+import {
+  Button,
+  Field,
+  HStack,
+  NativeSelect,
+  Stack,
+  Steps,
+  Textarea,
+} from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -59,8 +67,14 @@ export default function MoreDetails(props: MoreDetailsProps) {
           <Field.ErrorText>{errors.careerGoal?.message}</Field.ErrorText>
         </Field.Root>
 
-        <Button>Previous</Button>
-        <Button type="submit">Next</Button>
+        <HStack gap={4}>
+          <Steps.PrevTrigger flex={1} asChild>
+            <Button variant={"outline"}>Previous</Button>
+          </Steps.PrevTrigger>
+          <Button type="submit" flex={1}>
+            Submit
+          </Button>
+        </HStack>
       </Stack>
     </form>
   );

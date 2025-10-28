@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Button, Field, Input, Stack } from "@chakra-ui/react";
+import { Button, Field, HStack, Input, Stack, Steps } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,24 +40,28 @@ export default function WorkInfo(props: WorkInfoProps) {
       <Stack gap={4}>
         <Field.Root invalid={!!errors.jobTitle}>
           <Field.Label>Job Title</Field.Label>
-          <Input {...register("jobTitle")}/>
+          <Input {...register("jobTitle")} />
           <Field.ErrorText>{errors.jobTitle?.message}</Field.ErrorText>
         </Field.Root>
 
         <Field.Root invalid={!!errors.companyName}>
           <Field.Label>Company Name</Field.Label>
-          <Input {...register("companyName")}/>
+          <Input {...register("companyName")} />
           <Field.ErrorText>{errors.companyName?.message}</Field.ErrorText>
         </Field.Root>
 
         <Field.Root invalid={!!errors.yearsOfExperience}>
           <Field.Label>Years of Experience</Field.Label>
-          <Input {...register("yearsOfExperience")}/>
+          <Input {...register("yearsOfExperience")} />
           <Field.ErrorText>{errors.yearsOfExperience?.message}</Field.ErrorText>
         </Field.Root>
 
-        <Button>Previous</Button>
-        <Button type="submit">Next</Button>
+        <HStack gap={4}>
+          <Steps.PrevTrigger flex={1} asChild>
+            <Button variant={"outline"}>Previous</Button>
+          </Steps.PrevTrigger>
+          <Button type="submit" flex={1}>Next</Button>
+        </HStack>
       </Stack>
     </form>
   );

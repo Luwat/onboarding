@@ -24,6 +24,10 @@ const onboardingSteps = [
 export function OnboardingFormSteps() {
   const [step, setStep] = useState(0);
 
+  const goToNextStep = () => {
+    setStep((prevStep) => prevStep + 1);
+  }
+
   return (
     <Box mx={"auto"} maxW={"560px"} p={6} textAlign={"center"}>
       <Heading mb={12}>Onboarding Form</Heading>
@@ -44,7 +48,7 @@ export function OnboardingFormSteps() {
         <Steps.Content index={0}>
           <PersonalInfo
             onNext={(data) => {
-              setStep(step + 1);
+              goToNextStep();
               console.log(data);
             }}
           />
@@ -52,7 +56,7 @@ export function OnboardingFormSteps() {
         <Steps.Content index={1}>
           <WorkInfo
             onNext={(data) => {
-              setStep(step + 1);
+              goToNextStep();
               console.log(data);
             }}
           />
@@ -60,13 +64,13 @@ export function OnboardingFormSteps() {
         <Steps.Content index={2}>
           <MoreDetails
             onNext={(data) => {
-              setStep(step + 1);
+              goToNextStep();
               console.log(data);
             }}
           />
         </Steps.Content>
 
-        <Steps.CompletedContent mt={6}>Thank you for completing onboarding</Steps.CompletedContent>
+        <Steps.CompletedContent mt={6}>Thank you for completing your onboarding</Steps.CompletedContent>
       </Steps.Root>
     </Box>
   );
